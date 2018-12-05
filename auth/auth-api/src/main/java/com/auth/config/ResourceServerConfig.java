@@ -33,9 +33,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         // 前后端分离 不需要csrf
         http.cors().and().csrf().disable()
-                // 设置没有登录认证时候的错误提醒为401
-                .exceptionHandling().authenticationEntryPoint(new NoLoginAuthenticationEntryPoint()).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 //配置order访问控制，必须认证过后才可以访问
                 .authorizeRequests().antMatchers(WHITE_LIST).permitAll().anyRequest().authenticated().and();
     }

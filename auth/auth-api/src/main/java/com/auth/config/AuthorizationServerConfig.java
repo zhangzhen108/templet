@@ -1,8 +1,10 @@
 package com.auth.config;
 
+import com.auth.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -10,6 +12,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /**
  * Created by dujinkai on 2018/8/6.
@@ -21,11 +26,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private DataSource dataSource;
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
+                .userDetailsService(userDetailsService)
+                .tokenStore(new RedisTokenStore(redisConnectionFactory))
                 .accessTokenConverter(accessTokenConverter())
                 .authenticationManager(authenticationManager);
     }
@@ -47,13 +58,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     /**
      * 客户端配置
      */
-    @Override
+  /* @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("client_2")
+        clients.inMemory().withClient("client_1")
                 .authorizedGrantTypes("password", "refresh_token")
                 .scopes("read","write")
                 .secret("$2a$10$ijOPEDarOjkdahi3xpslIu6.cMpBVqYWpbGTkCh0h7Kjt4.NWQwkK").and().withClient("client_2")
                 .authorizedGrantTypes("client_credentials","refresh_token").scopes("read","write")
                 .secret("$2a$10$ijOPEDarOjkdahi3xpslIu6.cMpBVqYWpbGTkCh0h7Kjt4.NWQwkK");
+    }*/
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.jdbc(dataSource);
     }
 }

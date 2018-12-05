@@ -19,6 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
     UserMapper userMapper;
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserDO userDO=userMapper.selectByName(s);
         // 可用性 :true:可用 false:不可用

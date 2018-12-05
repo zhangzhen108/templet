@@ -24,6 +24,10 @@ server:
 
 
 zuul:
+  host:
+    max-per-route-connections: 60000
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
   routes:
     uaa:
       path: /uaa/**
@@ -32,7 +36,9 @@ zuul:
   add-proxy-headers: true
   sensitive-headers:
 
-
+ribbon:
+  ReadTimeout: 60000  # 单位毫秒数
+  SocketTimeout: 60000
 
 security:
   oauth2:

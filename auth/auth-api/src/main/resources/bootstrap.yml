@@ -1,6 +1,6 @@
 ##  服务端口
 server:
-  port: 8002
+  port: 8006
 ##  服务名称
 spring:
   application:

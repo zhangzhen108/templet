@@ -49,7 +49,9 @@
         </encoder>
     </appender>
 
-    <logger name="com.x.x.dao.XxxDao" level="DEBUG" />
+    <logger name="druid" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
     <logger name="com.auth.dao" level="DEBUG" >
         <appender-ref ref="SQL"/>
     </logger>

@@ -41,8 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // 自定义认证
-        auth.authenticationProvider(new CustomAuthenticationProvider(bCryptPasswordEncoder, userDetailsService));
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
 
