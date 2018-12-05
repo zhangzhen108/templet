@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "components.securitySchemes.oAuthSample.type",
+      "type": "java.lang.String",
+      "description": "Description for components.securitySchemes.oAuthSample.type."
+  }
+] }

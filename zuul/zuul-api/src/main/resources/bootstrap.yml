@@ -1,0 +1,55 @@
+eureka:
+  instance:
+    prefer-ip-address: true #使用IP注册
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://admin:123456@localhost:8000/eureka/
+
+spring:
+  application:
+    name: zuul
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411/
+
+
+server:
+  port: 8001
+
+
+zuul:
+  routes:
+    uaa:
+      path: /uaa/**
+      sensitiveHeaders:
+      serviceId: auth-server
+  add-proxy-headers: true
+  sensitive-headers:
+
+
+
+security:
+  oauth2:
+    client:
+      client-id: client_2
+      client-secret: $2a$10$ijOPEDarOjkdahi3xpslIu6.cMpBVqYWpbGTkCh0h7Kjt4.NWQwkK
+      access-token-uri: http://localhost:8001/uaa/oauth/token
+      user-authorization-uri: http://localhost:8001/uaa/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:9001/uaa/user
+      prefer-token-info: false
+ignore:
+  authUrls: /oauth/token,v2
+
+jwt:
+  jwtSecretKey: bGVjc2hvcF9qd3Rfc2VjcmV0X2tleQ==
+info:
+  app:
+    name: app
+    desc: app
