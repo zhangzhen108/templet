@@ -1,8 +1,15 @@
-package com.auth.domain.auth;
+package com.auth.result.auth;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserDO {
+@Data
+public class UserInfoDTO implements Serializable {
+
+
+    private static final long serialVersionUID = 5845189649974545072L;
     private Integer id;
 
     private String avatar;
@@ -10,8 +17,6 @@ public class UserDO {
     private String username;
 
     private String password;
-
-    private String salt;
 
     private String name;
 
@@ -28,6 +33,10 @@ public class UserDO {
     private Date createTime;
 
     private Date updateTime;
+
+    private Integer createBy;
+
+    private Integer updateBy;
 
     public Integer getId() {
         return id;
@@ -59,14 +68,6 @@ public class UserDO {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
     }
 
     public String getName() {
@@ -131,5 +132,21 @@ public class UserDO {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Integer createBy) {
+        this.createBy = createBy;
+    }
+
+    public Integer getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Integer updateBy) {
+        this.updateBy = updateBy;
     }
 }

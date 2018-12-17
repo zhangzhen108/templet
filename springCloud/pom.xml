@@ -34,11 +34,29 @@
         <jjwt.version>0.7.0</jjwt.version>
         <springfox-version>2.7.0</springfox-version>
         <org.webjars.sawagger>3.2.0</org.webjars.sawagger>
+        <lombok.version>1.18.2</lombok.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <mapstruct-processor.version>1.2.0.Final</mapstruct-processor.version>
     </properties>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
     <dependencyManagement>
-
         <dependencies>
+            <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct-processor.version}</version>
+        </dependency>
+            <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
@@ -55,10 +73,10 @@
                 <version>${fastjson.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${github.pagehelper.version}</version>
-            </dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${github.pagehelper.version}</version>
+        </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-jdk8</artifactId>

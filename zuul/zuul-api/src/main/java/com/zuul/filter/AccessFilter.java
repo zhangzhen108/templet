@@ -4,8 +4,6 @@
 //import com.netflix.zuul.context.RequestContext;
 //import io.jsonwebtoken.Claims;
 //import io.jsonwebtoken.Jwts;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.stereotype.Component;
 //import org.springframework.util.StringUtils;
@@ -16,7 +14,7 @@
 //
 //@Component
 //public class AccessFilter extends ZuulFilter {
-//    private final Logger log = LoggerFactory.getLogger(this.getClass());
+//
 //    /**
 //     * 忽略的url
 //     */
@@ -33,7 +31,7 @@
 //    public Object run() {
 //        RequestContext ctx = RequestContext.getCurrentContext();
 //        HttpServletRequest request = ctx.getRequest();
-//        String url= request.getRequestURI();
+//
 //        // 判断是否需要过滤  不需要过滤 直接放通
 //        if (!isNeedFilter(request.getRequestURI())) {
 //            ctx.setSendZuulResponse(true);
@@ -44,7 +42,6 @@
 //
 //        // 没有token直接返回
 //        if (StringUtils.isEmpty(token)) {
-//            log.error("token is empty.....");
 //            ctx.setResponseStatusCode(401);
 //            ctx.setSendZuulResponse(false);
 //            return null;
@@ -56,18 +53,16 @@
 //        try {
 //            claims = Jwts.parser().setSigningKey(jwtSecretKey).parseClaimsJws(token).getBody();
 //        } catch (Exception e) {
-//            log.error("token validate fail....", e);
+//            throw e;
 //        }
 //
 //        if (Objects.isNull(claims)) {
-//            log.error("token validate fail....");
 //            ctx.setResponseStatusCode(401);
 //            ctx.setSendZuulResponse(false);
 //            try {
 //                ctx.getResponse().getWriter().write("you are not login...");
 //                ctx.getResponse().getWriter().close();
 //            } catch (Exception e) {
-//                log.error("fail...", e);
 //            }
 //            return null;
 //        }
@@ -87,11 +82,9 @@
 //     */
 //    private boolean isNeedFilter(String uri) {
 //
-//        log.debug("isNeedFilter and uri:{} \r\n ignoreUrls:{} ", uri, ignoreUrls);
 //
 //        // 没有忽略的url 直接返回
 //        if (StringUtils.isEmpty(ignoreUrls)) {
-//            log.info("ignoreUrls is empty....");
 //            return true;
 //        }
 //

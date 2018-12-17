@@ -1,6 +1,6 @@
 ##  服务端口
 server:
-  port: 8006
+  port: 8007
 ##  服务名称
 spring:
   application:
@@ -22,7 +22,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
       #type: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://39.106.62.195:3306/zuul-auth?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&useAffectedRows=true
+    url: jdbc:mysql://39.106.62.195:3306/template?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&useAffectedRows=true
     username: root
     password: 123456
     druid:
@@ -75,7 +75,13 @@ spring:
         login-password: admin
         # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
       aop-patterns: com.auth.service.impl.*
-
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:8082/uaa/oauth/check_token
+      prefer-token-info: true
+      jwt:
+        keyUri: http://localhost:8089/oauth/token_key
 ##  eureka配置
 eureka:
   instance:
@@ -86,12 +92,12 @@ eureka:
       defaultZone: http://admin:123456@localhost:8000/eureka/
 ##  日志
 logging:
-  config: classpath:logback.xml
+  #config: classpath:logback.xml
   level:
-    org:
-      springframework:
-        web: debug
-        security: DEBUG
+    ROOT: INFO
+    com:
+      alibaba:
+        druid: DEBUG
 # application:
 mybatis:
   #pojo路径
@@ -104,7 +110,3 @@ pagehelper:
   reasonable: false
   supportMethodsArguments: true
   params: count=countSql
-security:
-  oauth2:
-    resource:
-      filter-order: 3
